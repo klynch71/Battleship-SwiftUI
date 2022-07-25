@@ -15,6 +15,26 @@
 		90831DAC288ECC7600A24FB6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 90831DAB288ECC7600A24FB6 /* Preview Assets.xcassets */; };
 		90831DB1288ECCA100A24FB6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90831D92288ECB9E00A24FB6 /* ContentView.swift */; };
 		90831DB2288ECCA600A24FB6 /* Battleship_SwiftUIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90831D90288ECB9E00A24FB6 /* Battleship_SwiftUIApp.swift */; };
+		90831DB5288ECFC400A24FB6 /* Coordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90831DB4288ECFC400A24FB6 /* Coordinate.swift */; };
+		90831DB6288ECFC400A24FB6 /* Coordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90831DB4288ECFC400A24FB6 /* Coordinate.swift */; };
+		90831DB8288ECFE700A24FB6 /* OceanZoneState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90831DB7288ECFE700A24FB6 /* OceanZoneState.swift */; };
+		90831DB9288ECFE700A24FB6 /* OceanZoneState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90831DB7288ECFE700A24FB6 /* OceanZoneState.swift */; };
+		90831DBB288ED00A00A24FB6 /* Ocean.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90831DBA288ED00A00A24FB6 /* Ocean.swift */; };
+		90831DBC288ED00A00A24FB6 /* Ocean.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90831DBA288ED00A00A24FB6 /* Ocean.swift */; };
+		90831DBE288ED02A00A24FB6 /* ShipCompartment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90831DBD288ED02A00A24FB6 /* ShipCompartment.swift */; };
+		90831DBF288ED02A00A24FB6 /* ShipCompartment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90831DBD288ED02A00A24FB6 /* ShipCompartment.swift */; };
+		90831DC1288ED04400A24FB6 /* Ship.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90831DC0288ED04400A24FB6 /* Ship.swift */; };
+		90831DC2288ED04400A24FB6 /* Ship.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90831DC0288ED04400A24FB6 /* Ship.swift */; };
+		90831DC4288ED05D00A24FB6 /* Fleet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90831DC3288ED05D00A24FB6 /* Fleet.swift */; };
+		90831DC5288ED05D00A24FB6 /* Fleet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90831DC3288ED05D00A24FB6 /* Fleet.swift */; };
+		90831DC7288ED07700A24FB6 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90831DC6288ED07700A24FB6 /* Game.swift */; };
+		90831DC8288ED07700A24FB6 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90831DC6288ED07700A24FB6 /* Game.swift */; };
+		90831DCA288ED0CC00A24FB6 /* OceanZoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90831DC9288ED0CC00A24FB6 /* OceanZoneView.swift */; };
+		90831DCB288ED0CC00A24FB6 /* OceanZoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90831DC9288ED0CC00A24FB6 /* OceanZoneView.swift */; };
+		90831DCD288ED0EF00A24FB6 /* OceanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90831DCC288ED0EF00A24FB6 /* OceanView.swift */; };
+		90831DCE288ED0EF00A24FB6 /* OceanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90831DCC288ED0EF00A24FB6 /* OceanView.swift */; };
+		90831DD0288ED11200A24FB6 /* ToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90831DCF288ED11200A24FB6 /* ToolbarView.swift */; };
+		90831DD1288ED11200A24FB6 /* ToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90831DCF288ED11200A24FB6 /* ToolbarView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +48,16 @@
 		90831DAB288ECC7600A24FB6 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		90831DAD288ECC7600A24FB6 /* Battleship_SwiftUI_MAC.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Battleship_SwiftUI_MAC.entitlements; sourceTree = "<group>"; };
 		90831DB3288ECEA200A24FB6 /* screenshot_ios.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = screenshot_ios.png; sourceTree = "<group>"; };
+		90831DB4288ECFC400A24FB6 /* Coordinate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinate.swift; sourceTree = "<group>"; };
+		90831DB7288ECFE700A24FB6 /* OceanZoneState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OceanZoneState.swift; sourceTree = "<group>"; };
+		90831DBA288ED00A00A24FB6 /* Ocean.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ocean.swift; sourceTree = "<group>"; };
+		90831DBD288ED02A00A24FB6 /* ShipCompartment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShipCompartment.swift; sourceTree = "<group>"; };
+		90831DC0288ED04400A24FB6 /* Ship.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ship.swift; sourceTree = "<group>"; };
+		90831DC3288ED05D00A24FB6 /* Fleet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fleet.swift; sourceTree = "<group>"; };
+		90831DC6288ED07700A24FB6 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
+		90831DC9288ED0CC00A24FB6 /* OceanZoneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OceanZoneView.swift; sourceTree = "<group>"; };
+		90831DCC288ED0EF00A24FB6 /* OceanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OceanView.swift; sourceTree = "<group>"; };
+		90831DCF288ED11200A24FB6 /* ToolbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,7 +101,14 @@
 			isa = PBXGroup;
 			children = (
 				90831D90288ECB9E00A24FB6 /* Battleship_SwiftUIApp.swift */,
-				90831D92288ECB9E00A24FB6 /* ContentView.swift */,
+				90831DB4288ECFC400A24FB6 /* Coordinate.swift */,
+				90831DB7288ECFE700A24FB6 /* OceanZoneState.swift */,
+				90831DBA288ED00A00A24FB6 /* Ocean.swift */,
+				90831DBD288ED02A00A24FB6 /* ShipCompartment.swift */,
+				90831DC0288ED04400A24FB6 /* Ship.swift */,
+				90831DC3288ED05D00A24FB6 /* Fleet.swift */,
+				90831DC6288ED07700A24FB6 /* Game.swift */,
+				90831DD2288ED12300A24FB6 /* Views */,
 				90831D94288ECB9F00A24FB6 /* Assets.xcassets */,
 				90831D96288ECB9F00A24FB6 /* Preview Content */,
 			);
@@ -102,6 +139,17 @@
 				90831DAB288ECC7600A24FB6 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		90831DD2288ED12300A24FB6 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				90831D92288ECB9E00A24FB6 /* ContentView.swift */,
+				90831DC9288ED0CC00A24FB6 /* OceanZoneView.swift */,
+				90831DCC288ED0EF00A24FB6 /* OceanView.swift */,
+				90831DCF288ED11200A24FB6 /* ToolbarView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -205,7 +253,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				90831D93288ECB9E00A24FB6 /* ContentView.swift in Sources */,
+				90831DCA288ED0CC00A24FB6 /* OceanZoneView.swift in Sources */,
+				90831DD0288ED11200A24FB6 /* ToolbarView.swift in Sources */,
+				90831DC7288ED07700A24FB6 /* Game.swift in Sources */,
 				90831D91288ECB9E00A24FB6 /* Battleship_SwiftUIApp.swift in Sources */,
+				90831DBE288ED02A00A24FB6 /* ShipCompartment.swift in Sources */,
+				90831DCD288ED0EF00A24FB6 /* OceanView.swift in Sources */,
+				90831DBB288ED00A00A24FB6 /* Ocean.swift in Sources */,
+				90831DB8288ECFE700A24FB6 /* OceanZoneState.swift in Sources */,
+				90831DC1288ED04400A24FB6 /* Ship.swift in Sources */,
+				90831DC4288ED05D00A24FB6 /* Fleet.swift in Sources */,
+				90831DB5288ECFC400A24FB6 /* Coordinate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -214,7 +272,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				90831DB1288ECCA100A24FB6 /* ContentView.swift in Sources */,
+				90831DCB288ED0CC00A24FB6 /* OceanZoneView.swift in Sources */,
+				90831DD1288ED11200A24FB6 /* ToolbarView.swift in Sources */,
+				90831DC8288ED07700A24FB6 /* Game.swift in Sources */,
 				90831DB2288ECCA600A24FB6 /* Battleship_SwiftUIApp.swift in Sources */,
+				90831DBF288ED02A00A24FB6 /* ShipCompartment.swift in Sources */,
+				90831DCE288ED0EF00A24FB6 /* OceanView.swift in Sources */,
+				90831DBC288ED00A00A24FB6 /* Ocean.swift in Sources */,
+				90831DB9288ECFE700A24FB6 /* OceanZoneState.swift in Sources */,
+				90831DC2288ED04400A24FB6 /* Ship.swift in Sources */,
+				90831DC5288ED05D00A24FB6 /* Fleet.swift in Sources */,
+				90831DB6288ECFC400A24FB6 /* Coordinate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
