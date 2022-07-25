@@ -27,6 +27,7 @@
 		90831DA8288ECC7600A24FB6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		90831DAB288ECC7600A24FB6 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		90831DAD288ECC7600A24FB6 /* Battleship_SwiftUI_MAC.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Battleship_SwiftUI_MAC.entitlements; sourceTree = "<group>"; };
+		90831DB3288ECEA200A24FB6 /* screenshot_ios.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = screenshot_ios.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,6 +51,7 @@
 		90831D84288ECB9E00A24FB6 = {
 			isa = PBXGroup;
 			children = (
+				90831DB3288ECEA200A24FB6 /* screenshot_ios.png */,
 				90831D8F288ECB9E00A24FB6 /* Battleship-SwiftUI */,
 				90831DA3288ECC7400A24FB6 /* Battleship-SwiftUI-MAC */,
 				90831D8E288ECB9E00A24FB6 /* Products */,
