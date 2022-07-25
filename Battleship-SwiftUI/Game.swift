@@ -18,6 +18,7 @@ final class Game: ObservableObject {
     var fleet: Fleet
     @Published var zoneStates = [[OceanZoneState]]()
     @Published var message = ""
+    var over: Bool {return fleet.isDestroyed()}
     
     init() {
         self.ocean = Ocean(numCols: Game.numCols, numRows: Game.numRows)
@@ -38,9 +39,9 @@ final class Game: ObservableObject {
      handle when an OceanZoneView is tapped
      */
     func zoneTapped(_ location: Coordinate) {
-        //if we already tapped this location, just ignore it
-        if (zoneStates[location.x][location.y] != .clear) {
-            message = ""
+        
+        //if we already tapped this location or the game is over, just ignore it
+        if ((zoneStates[location.x][location.y] != .clear) || over) {
             return
         }
         
@@ -55,7 +56,7 @@ final class Game: ObservableObject {
         }
         
         //are we done?
-        if (fleet.isDestroyed()) {
+        if (over) {
             message += " YOU WIN!"
         }
     }
