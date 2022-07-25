@@ -11,6 +11,10 @@
 		90831D93288ECB9E00A24FB6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90831D92288ECB9E00A24FB6 /* ContentView.swift */; };
 		90831D95288ECB9F00A24FB6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 90831D94288ECB9F00A24FB6 /* Assets.xcassets */; };
 		90831D98288ECB9F00A24FB6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 90831D97288ECB9F00A24FB6 /* Preview Assets.xcassets */; };
+		90831DA9288ECC7600A24FB6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 90831DA8288ECC7600A24FB6 /* Assets.xcassets */; };
+		90831DAC288ECC7600A24FB6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 90831DAB288ECC7600A24FB6 /* Preview Assets.xcassets */; };
+		90831DB1288ECCA100A24FB6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90831D92288ECB9E00A24FB6 /* ContentView.swift */; };
+		90831DB2288ECCA600A24FB6 /* Battleship_SwiftUIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90831D90288ECB9E00A24FB6 /* Battleship_SwiftUIApp.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,10 +23,21 @@
 		90831D92288ECB9E00A24FB6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		90831D94288ECB9F00A24FB6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		90831D97288ECB9F00A24FB6 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		90831DA2288ECC7400A24FB6 /* Battleship-SwiftUI-MAC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Battleship-SwiftUI-MAC.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		90831DA8288ECC7600A24FB6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		90831DAB288ECC7600A24FB6 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		90831DAD288ECC7600A24FB6 /* Battleship_SwiftUI_MAC.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Battleship_SwiftUI_MAC.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		90831D8A288ECB9E00A24FB6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		90831D9F288ECC7400A24FB6 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -36,6 +51,7 @@
 			isa = PBXGroup;
 			children = (
 				90831D8F288ECB9E00A24FB6 /* Battleship-SwiftUI */,
+				90831DA3288ECC7400A24FB6 /* Battleship-SwiftUI-MAC */,
 				90831D8E288ECB9E00A24FB6 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -44,6 +60,7 @@
 			isa = PBXGroup;
 			children = (
 				90831D8D288ECB9E00A24FB6 /* Battleship-SwiftUI.app */,
+				90831DA2288ECC7400A24FB6 /* Battleship-SwiftUI-MAC.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -63,6 +80,24 @@
 			isa = PBXGroup;
 			children = (
 				90831D97288ECB9F00A24FB6 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		90831DA3288ECC7400A24FB6 /* Battleship-SwiftUI-MAC */ = {
+			isa = PBXGroup;
+			children = (
+				90831DA8288ECC7600A24FB6 /* Assets.xcassets */,
+				90831DAD288ECC7600A24FB6 /* Battleship_SwiftUI_MAC.entitlements */,
+				90831DAA288ECC7600A24FB6 /* Preview Content */,
+			);
+			path = "Battleship-SwiftUI-MAC";
+			sourceTree = "<group>";
+		};
+		90831DAA288ECC7600A24FB6 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				90831DAB288ECC7600A24FB6 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
 			sourceTree = "<group>";
@@ -87,6 +122,23 @@
 			productReference = 90831D8D288ECB9E00A24FB6 /* Battleship-SwiftUI.app */;
 			productType = "com.apple.product-type.application";
 		};
+		90831DA1288ECC7400A24FB6 /* Battleship-SwiftUI-MAC */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 90831DAE288ECC7600A24FB6 /* Build configuration list for PBXNativeTarget "Battleship-SwiftUI-MAC" */;
+			buildPhases = (
+				90831D9E288ECC7400A24FB6 /* Sources */,
+				90831D9F288ECC7400A24FB6 /* Frameworks */,
+				90831DA0288ECC7400A24FB6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Battleship-SwiftUI-MAC";
+			productName = "Battleship-SwiftUI-MAC";
+			productReference = 90831DA2288ECC7400A24FB6 /* Battleship-SwiftUI-MAC.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -98,6 +150,9 @@
 				LastUpgradeCheck = 1400;
 				TargetAttributes = {
 					90831D8C288ECB9E00A24FB6 = {
+						CreatedOnToolsVersion = 14.0;
+					};
+					90831DA1288ECC7400A24FB6 = {
 						CreatedOnToolsVersion = 14.0;
 					};
 				};
@@ -116,6 +171,7 @@
 			projectRoot = "";
 			targets = (
 				90831D8C288ECB9E00A24FB6 /* Battleship-SwiftUI */,
+				90831DA1288ECC7400A24FB6 /* Battleship-SwiftUI-MAC */,
 			);
 		};
 /* End PBXProject section */
@@ -130,6 +186,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		90831DA0288ECC7400A24FB6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				90831DAC288ECC7600A24FB6 /* Preview Assets.xcassets in Resources */,
+				90831DA9288ECC7600A24FB6 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -139,6 +204,15 @@
 			files = (
 				90831D93288ECB9E00A24FB6 /* ContentView.swift in Sources */,
 				90831D91288ECB9E00A24FB6 /* Battleship_SwiftUIApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		90831D9E288ECC7400A24FB6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				90831DB1288ECCA100A24FB6 /* ContentView.swift in Sources */,
+				90831DB2288ECCA600A24FB6 /* Battleship_SwiftUIApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -315,6 +389,60 @@
 			};
 			name = Release;
 		};
+		90831DAF288ECC7600A24FB6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Battleship-SwiftUI-MAC/Battleship_SwiftUI_MAC.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Battleship-SwiftUI-MAC/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 12.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "kalyn.com.Battleship-SwiftUI-MAC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		90831DB0288ECC7600A24FB6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Battleship-SwiftUI-MAC/Battleship_SwiftUI_MAC.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Battleship-SwiftUI-MAC/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 12.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "kalyn.com.Battleship-SwiftUI-MAC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -332,6 +460,15 @@
 			buildConfigurations = (
 				90831D9C288ECB9F00A24FB6 /* Debug */,
 				90831D9D288ECB9F00A24FB6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		90831DAE288ECC7600A24FB6 /* Build configuration list for PBXNativeTarget "Battleship-SwiftUI-MAC" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				90831DAF288ECC7600A24FB6 /* Debug */,
+				90831DB0288ECC7600A24FB6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
