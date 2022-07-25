@@ -12,13 +12,13 @@ import Foundation
  the origin always at (0, 0)
  */
 struct Ocean {
-    var width: Int
-    var height: Int
+    var numCols: Int
+    var numRows: Int
     private var origin: Coordinate = .zero
     
-    init(width: Int, height: Int) {
-        self.width = width
-        self.height = height
+    init(numCols: Int, numRows: Int) {
+        self.numCols = numCols
+        self.numRows = numRows
     }
     
     /*
@@ -26,7 +26,7 @@ struct Ocean {
      */
     func contains(_ point: Coordinate) ->Bool
     {
-        return (point.x >= origin.x && point.y >= origin.y && point.x < width && point.y < height)
+        return (point.x >= origin.x && point.y >= origin.y && point.x < numCols && point.y < numRows)
     }
     
     /*
@@ -45,8 +45,8 @@ struct Ocean {
         var locations = [[Coordinate]]()
         
         //horizontal possible fits for each row
-        for y in 0..<height {
-            for start in 0...(width - length) {
+        for y in 0..<numRows {
+            for start in 0...(numCols - length) {
                 var span = [Coordinate]()
                 for x in start..<(start + length) {
                     span.append(Coordinate(x: x, y: y))
@@ -56,8 +56,8 @@ struct Ocean {
         }
         
         //vertical possible fits for each column
-        for x in 0..<width {
-            for start in 0...(height - length) {
+        for x in 0..<numCols {
+            for start in 0...(numRows - length) {
                 var span = [Coordinate]()
                 for y in start..<(start + length) {
                     span.append(Coordinate(x:x, y:y))

@@ -12,15 +12,15 @@ import Combine
  The classic Battleship game
  */
 final class Game: ObservableObject {
-    static let width = 10
-    static let height = 10
+    static let numCols = 10
+    static let numRows = 10
     var ocean: Ocean
     var fleet: Fleet
     @Published var zoneStates = [[OceanZoneState]]()
     @Published var message = ""
     
     init() {
-        self.ocean = Ocean(width: Game.width, height: Game.height)
+        self.ocean = Ocean(numCols: Game.numCols, numRows: Game.numRows)
         self.fleet = Fleet()
         reset()
     }
@@ -65,9 +65,9 @@ final class Game: ObservableObject {
      */
     private func defaultZoneStates() -> [[OceanZoneState]] {
         var states = [[OceanZoneState]]()
-        for x in 0..<Game.width {
+        for x in 0..<Game.numCols {
             states.append([])
-            for _ in 0..<Game.height {
+            for _ in 0..<Game.numRows {
                 states[x].append(.clear)
             }
         }
