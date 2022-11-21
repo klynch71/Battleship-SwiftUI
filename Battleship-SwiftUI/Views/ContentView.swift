@@ -11,7 +11,8 @@ struct ContentView: View {
     var body: some View {
         VStack {
             ToolbarView()
-            OceanView()
+            OceanView(ownership: .enemy)
+            OceanView(ownership: .my)
         }
     }
 }

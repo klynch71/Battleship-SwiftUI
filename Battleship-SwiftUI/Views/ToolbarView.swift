@@ -30,7 +30,7 @@ struct ToolbarView: View {
 struct ToolbarView_Previews: PreviewProvider {
     static var previews: some View {
         ToolbarView()
-            .environmentObject(Game())
+            .environmentObject(Game(numCols: 8, numRows: 8))
     }
 }
 

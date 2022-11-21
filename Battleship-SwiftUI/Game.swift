@@ -12,17 +12,26 @@ import Combine
  The classic Battleship game
  */
 final class Game: ObservableObject {
-    static let numCols = 10
-    static let numRows = 10
-    var ocean: Ocean
-    var fleet: Fleet
-    @Published var zoneStates = [[OceanZoneState]]()
+    let numCols: Int
+    let numRows: Int
+    var myOcean: Ocean
+    var enemyOcean: Ocean
+    var myFleet: Fleet
+    var enemyFleet: Fleet
+    @Published var myZoneStates = [[OceanZoneState]]()
+    @Published var enemyZoneStates = [[OceanZoneState]]()
     @Published var message = ""
-    var over: Bool {return fleet.isDestroyed()}
+    var over: Bool {
+        return myFleet.isDestroyed() || enemyFleet.isDestroyed()
+    }
     
-    init() {
-        self.ocean = Ocean(numCols: Game.numCols, numRows: Game.numRows)
-        self.fleet = Fleet()
+    init(numCols: Int, numRows: Int) {
+        self.numRows = numRows
+        self.numCols = numCols
+        self.myOcean = Ocean(numCols: numCols, numRows: numRows)
+        self.myFleet = Fleet()
+        self.enemyOcean = Ocean(numCols: numCols, numRows: numRows)
+        self.enemyFleet = Fleet()
         reset()
     }
     
@@ -30,34 +39,58 @@ final class Game: ObservableObject {
      start a new game
      */
     func reset() {
-        self.zoneStates = defaultZoneStates()
-        self.fleet.deploy(on: self.ocean)
+        self.myZoneStates = defaultZoneStates()
+        self.enemyZoneStates = defaultZoneStates()
+        self.myFleet.deploy(on: self.myOcean)
+        self.enemyFleet.deploy(on: self.enemyOcean)
         self.message = ""
     }
     
     /*
      handle when an OceanZoneView is tapped
      */
-    func zoneTapped(_ location: Coordinate) {
+    func enemyZoneTapped(_ location: Coordinate) {
         
         //if we already tapped this location or the game is over, just ignore it
-        if ((zoneStates[location.x][location.y] != .clear) || over) {
+        if ((enemyZoneStates[location.x][location.y] != .clear) || over) {
             return
         }
         
         //see if we hit a ship
-        if let hitShip = fleet.ship(at: location) {
+        if let hitShip = enemyFleet.ship(at: location) {
             hitShip.hit(at: location)
-            zoneStates[location.x][location.y] = .hit
-            message = hitShip.isSunk() ? "You sunk my \(hitShip.name)!" : "Hit"
+            enemyZoneStates[location.x][location.y] = .hit
+            message = hitShip.isSunk() ? "You sunk enemy \(hitShip.name)!" : "Hit"
         } else {
-            zoneStates[location.x][location.y] = .miss
+            enemyZoneStates[location.x][location.y] = .miss
             message = "Miss"
         }
         
         //are we done?
         if (over) {
-            message += " YOU WIN!"
+            message += " YOU WON!"
+        }
+    }
+
+    func myZoneTapped(_ location: Coordinate) {
+        //computer tapped my oceen location
+        if ((myZoneStates[location.x][location.y] != .clear) || over) {
+            return
+        }
+
+        //see if we hit a ship
+        if let hitShip = myFleet.ship(at: location) {
+            hitShip.hit(at: location)
+            myZoneStates[location.x][location.y] = .hit
+            message = hitShip.isSunk() ? "Enemy did sunk your \(hitShip.name)!" : "Hited"
+        } else {
+            myZoneStates[location.x][location.y] = .miss
+            message = "Missed"
+        }
+
+        //are we done?
+        if (over) {
+            message += " YOU LOOSE!"
         }
     }
     
@@ -66,9 +99,9 @@ final class Game: ObservableObject {
      */
     private func defaultZoneStates() -> [[OceanZoneState]] {
         var states = [[OceanZoneState]]()
-        for x in 0..<Game.numCols {
+        for x in 0..<self.numCols {
             states.append([])
-            for _ in 0..<Game.numRows {
+            for _ in 0..<self.numRows {
                 states[x].append(.clear)
             }
         }
