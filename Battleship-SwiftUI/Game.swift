@@ -2,16 +2,18 @@
 //  Game.swift
 //  Battleship-SwiftUI
 //
-//  Created by Kevin Lynch on 7/25/22.
+//  Created by Sebastian Kucera on 11/20/22.
 //
 
 import Foundation
 import Combine
 
+
 /*
  The classic Battleship game
  */
 final class Game: ObservableObject {
+    
     var amonution: Int = 20
     let numCols: Int
     let numRows: Int
@@ -53,7 +55,10 @@ final class Game: ObservableObject {
      handle when an OceanZoneView is tapped
      */
     func enemyZoneTapped(_ location: Coordinate) {
-        self.messageAmo += 1
+        if (over == false && enemyZoneStates[location.x][location.y] == .clear) {
+            self.messageAmo += 1
+        }
+        
         //if we already tapped this location or the game is over, just ignore it
         if ((enemyZoneStates[location.x][location.y] != .clear) || over) {
             return
@@ -71,7 +76,7 @@ final class Game: ObservableObject {
         
         //are we done?
         if (over) {
-            message += " YOU WON!"
+            message = "YOU WON!"
         }
     }
 
@@ -93,7 +98,7 @@ final class Game: ObservableObject {
 
         //are we done?
         if (over) {
-            message += " YOU LOOSE!"
+            message = "YOU LOST!"
         }
     }
     

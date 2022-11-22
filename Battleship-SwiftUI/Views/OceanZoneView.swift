@@ -22,14 +22,16 @@ struct OceanZoneView: View {
                 .background(.blue)
             
             if (state != .clear) {
-                ScaledShape(shape: Circle(), scale: circleScale)
+                ScaledShape(shape: Rectangle(), scale: circleScale)
                     .fill(circleColor())
+                    .opacity(0.8)
+                
             }
         }
     }
     
     func circleColor() -> Color {
-        return (state == .hit) ? .red : .white
+        return (state == .hit) ? .red : .green
     }
 }
 
