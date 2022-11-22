@@ -12,6 +12,7 @@ import Combine
  The classic Battleship game
  */
 final class Game: ObservableObject {
+    var amonution: Int = 20
     let numCols: Int
     let numRows: Int
     var myOcean: Ocean
@@ -21,6 +22,7 @@ final class Game: ObservableObject {
     @Published var myZoneStates = [[OceanZoneState]]()
     @Published var enemyZoneStates = [[OceanZoneState]]()
     @Published var message = ""
+    @Published var messageAmo: Int = 0
     var over: Bool {
         return myFleet.isDestroyed() || enemyFleet.isDestroyed()
     }
@@ -44,13 +46,14 @@ final class Game: ObservableObject {
         self.myFleet.deploy(on: self.myOcean)
         self.enemyFleet.deploy(on: self.enemyOcean)
         self.message = ""
+        self.messageAmo = 0
     }
     
     /*
      handle when an OceanZoneView is tapped
      */
     func enemyZoneTapped(_ location: Coordinate) {
-        
+        self.messageAmo += 1
         //if we already tapped this location or the game is over, just ignore it
         if ((enemyZoneStates[location.x][location.y] != .clear) || over) {
             return

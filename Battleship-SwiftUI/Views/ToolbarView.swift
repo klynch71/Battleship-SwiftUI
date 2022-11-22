@@ -19,6 +19,8 @@ struct ToolbarView: View {
             Spacer()
             Text(game.message)
             Spacer()
+            Text("\(game.messageAmo)")
+
         }.frame(height: 30)
     }
     
