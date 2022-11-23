@@ -50,6 +50,7 @@ final class Game: ObservableObject {
         self.enemyZoneStates = defaultZoneStates(for: self.enemyFleet)
         self.message = ""
         self.messageAmo = 0
+        self.lastHittedLocation = nil
     }
     
     /*
