@@ -30,9 +30,7 @@ struct OceanView: View {
                     case .my:
                         OceanZoneView(state: $game.myZoneStates[x][y], forceVisibility: true)
                             .frame(height: geo.size.height/CGFloat(game.numRows))
-                            .onTapGesture {
-                                game.myZoneTapped(location)
-                            }
+
                     case .enemy:
                         OceanZoneView(state: $game.enemyZoneStates[x][y], forceVisibility: false)
                             .frame(height: geo.size.height/CGFloat(game.numRows))

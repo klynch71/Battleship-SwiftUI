@@ -71,6 +71,10 @@ final class Game: ObservableObject {
                 message = "Miss"
             }
 
+            Task {
+                let duration: Duration = .seconds(1)
+                await self.delayedAction(for: duration)
+            }
         }
     }
 
@@ -113,5 +117,30 @@ final class Game: ObservableObject {
         return states
     }
 
+    func delayedAction(for duration: Duration) async {
+        try? await Task.sleep(for: duration)
+        performEnemyRandomFire()
+    }
+
+    func performEnemyRandomFire() {
+        let clearLocations = findAllClearLocations()
+        let index = Int.random(in: 0..<clearLocations.count)
+        let randomLocation = clearLocations[index]
+
+        self.myZoneTapped(randomLocation)
+    }
+
+    func findAllClearLocations() -> [Coordinate] {
+        var locations = [Coordinate]()
+        for (x, states) in self.enemyZoneStates.enumerated() {
+            for (y, state) in states.enumerated() {
+                if case .clear = state {
+                    let location = Coordinate(x: x, y: y)
+                    locations.append(location)
+                }
+            }
+        }
+        return locations
+    }
 }
 
