@@ -133,17 +133,20 @@ final class Game: ObservableObject {
 
     func performEnemyRandomFire() {
         let clearLocations = findAllClearLocations()
+        var location: Coordinate
         if let lastHittedLocation = self.lastHittedLocation {
             // find from clearLocations nearest location to lastHittedLocation
-            // shoot
-            // return
+            // temporary use random
+            let index = Int.random(in: 0..<clearLocations.count)
+            location = clearLocations[index]
+        } else {
+            let index = Int.random(in: 0..<clearLocations.count)
+            location = clearLocations[index]
         }
-        let index = Int.random(in: 0..<clearLocations.count)
-        let randomLocation = clearLocations[index]
 
-        let hit = self.myZoneTapped(randomLocation)
+        let hit = self.myZoneTapped(location)
         if hit {
-            self.lastHittedLocation = randomLocation
+            self.lastHittedLocation = location
         }
     }
 
