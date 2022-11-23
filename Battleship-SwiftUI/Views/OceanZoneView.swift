@@ -13,6 +13,7 @@ import SwiftUI
  */
 struct OceanZoneView: View {
     @Binding var state: OceanZoneState
+    var forceVisibility: Bool
     private let circleScale = CGSize(width: 0.5, height: 0.5)
     
     var body: some View {
@@ -20,22 +21,32 @@ struct OceanZoneView: View {
             Rectangle()
                 .strokeBorder(.black, lineWidth: 2)
                 .background(.blue)
-            
-            if (state != .clear) {
-                ScaledShape(shape: Circle(), scale: circleScale)
-                    .fill(circleColor())
+
+            switch state {
+            case .clear(let isShip):
+                if forceVisibility && isShip {
+                    ScaledShape(shape: Rectangle(), scale: circleScale)
+                        .fill(.white)
+                        .opacity(0.8)
+                } else {
+                    EmptyView()
+                }
+            case .miss:
+                ScaledShape(shape: Rectangle(), scale: circleScale)
+                    .fill(.green)
+                    .opacity(0.8)
+            case .hit:
+                ScaledShape(shape: Rectangle(), scale: circleScale)
+                    .fill(.red)
+                    .opacity(0.8)
             }
         }
-    }
-    
-    func circleColor() -> Color {
-        return (state == .hit) ? .red : .white
     }
 }
 
 struct OceanZoneView_Previews: PreviewProvider {
     static var previews: some View {
-        OceanZoneView(state: .constant(.miss))
+        OceanZoneView(state: .constant(.miss), forceVisibility: true)
     }
 }
 
