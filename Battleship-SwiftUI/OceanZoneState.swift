@@ -9,7 +9,7 @@
 import Foundation
 
 enum OceanZoneState {
-    case clear
+    case clear(Bool)
     case miss
     case hit
 }

@@ -43,10 +43,10 @@ final class Game: ObservableObject {
      start a new game
      */
     func reset() {
-        self.myZoneStates = defaultZoneStates()
-        self.enemyZoneStates = defaultZoneStates()
         self.myFleet.deploy(on: self.myOcean)
         self.enemyFleet.deploy(on: self.enemyOcean)
+        self.myZoneStates = defaultZoneStates(for: self.myFleet)
+        self.enemyZoneStates = defaultZoneStates(for: self.enemyFleet)
         self.message = ""
         self.messageAmo = 0
     }
@@ -55,62 +55,59 @@ final class Game: ObservableObject {
      handle when an OceanZoneView is tapped
      */
     func enemyZoneTapped(_ location: Coordinate) {
-        if (over == false && enemyZoneStates[location.x][location.y] == .clear) {
-            self.messageAmo += 1
-        }
-        
-        //if we already tapped this location or the game is over, just ignore it
-        if ((enemyZoneStates[location.x][location.y] != .clear) || over) {
+        guard !over else {
+            message = "YOU WON!"
             return
         }
-        
-        //see if we hit a ship
-        if let hitShip = enemyFleet.ship(at: location) {
-            hitShip.hit(at: location)
-            enemyZoneStates[location.x][location.y] = .hit
-            message = hitShip.isSunk() ? "You sunk enemy \(hitShip.name)!" : "Hit"
-        } else {
-            enemyZoneStates[location.x][location.y] = .miss
-            message = "Miss"
-        }
-        
-        //are we done?
-        if (over) {
-            message = "YOU WON!"
+
+        if case .clear = enemyZoneStates[location.x][location.y] {
+            self.messageAmo += 1
+            if let hitShip = enemyFleet.ship(at: location) {
+                hitShip.hit(at: location)
+                enemyZoneStates[location.x][location.y] = .hit
+                message = hitShip.isSunk() ? "You sunk enemy \(hitShip.name)!" : "Hit"
+            } else {
+                enemyZoneStates[location.x][location.y] = .miss
+                message = "Miss"
+            }
+
         }
     }
 
     func myZoneTapped(_ location: Coordinate) {
-        //computer tapped my oceen location
-        if ((myZoneStates[location.x][location.y] != .clear) || over) {
+        guard !over else {
+            message = "YOU LOST!"
             return
         }
 
-        //see if we hit a ship
-        if let hitShip = myFleet.ship(at: location) {
-            hitShip.hit(at: location)
-            myZoneStates[location.x][location.y] = .hit
-            message = hitShip.isSunk() ? "Enemy did sunk your \(hitShip.name)!" : "Hited"
-        } else {
-            myZoneStates[location.x][location.y] = .miss
-            message = "Missed"
-        }
-
-        //are we done?
-        if (over) {
-            message = "YOU LOST!"
+        if case .clear = myZoneStates[location.x][location.y] {
+            self.messageAmo += 1
+            //see if we hit a ship
+            if let hitShip = myFleet.ship(at: location) {
+                hitShip.hit(at: location)
+                myZoneStates[location.x][location.y] = .hit
+                message = hitShip.isSunk() ? "Enemy did sunk your \(hitShip.name)!" : "Hited"
+            } else {
+                myZoneStates[location.x][location.y] = .miss
+                message = "Missed"
+            }
         }
     }
     
     /*
      create a two dimensional array of OceanZoneStates all set to .clear
      */
-    private func defaultZoneStates() -> [[OceanZoneState]] {
+    private func defaultZoneStates(for fleet: Fleet) -> [[OceanZoneState]] {
         var states = [[OceanZoneState]]()
         for x in 0..<self.numCols {
             states.append([])
-            for _ in 0..<self.numRows {
-                states[x].append(.clear)
+            for y in 0..<self.numRows {
+                let location = Coordinate(x: x, y: y)
+                if fleet.ship(at: location) != nil {
+                    states[x].append(.clear(true))
+                } else {
+                    states[x].append(.clear(false))
+                }
             }
         }
         return states

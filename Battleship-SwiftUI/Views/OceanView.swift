@@ -28,13 +28,13 @@ struct OceanView: View {
                     let location = Coordinate(x: x, y: y)
                     switch self.ownership {
                     case .my:
-                        OceanZoneView(state: $game.myZoneStates[x][y])
+                        OceanZoneView(state: $game.myZoneStates[x][y], forceVisibility: true)
                             .frame(height: geo.size.height/CGFloat(game.numRows))
                             .onTapGesture {
                                 game.myZoneTapped(location)
                             }
                     case .enemy:
-                        OceanZoneView(state: $game.enemyZoneStates[x][y])
+                        OceanZoneView(state: $game.enemyZoneStates[x][y], forceVisibility: false)
                             .frame(height: geo.size.height/CGFloat(game.numRows))
                             .onTapGesture {
                                 game.enemyZoneTapped(location)
