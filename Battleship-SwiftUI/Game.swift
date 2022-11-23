@@ -28,6 +28,7 @@ final class Game: ObservableObject {
     var over: Bool {
         return myFleet.isDestroyed() || enemyFleet.isDestroyed()
     }
+    var lastHittedLocation: Coordinate?
     
     init(numCols: Int, numRows: Int) {
         self.numRows = numRows
@@ -132,10 +133,18 @@ final class Game: ObservableObject {
 
     func performEnemyRandomFire() {
         let clearLocations = findAllClearLocations()
+        if let lastHittedLocation = self.lastHittedLocation {
+            // find from clearLocations nearest location to lastHittedLocation
+            // shoot
+            // return
+        }
         let index = Int.random(in: 0..<clearLocations.count)
         let randomLocation = clearLocations[index]
 
         let hit = self.myZoneTapped(randomLocation)
+        if hit {
+            self.lastHittedLocation = randomLocation
+        }
     }
 
     func findAllClearLocations() -> [Coordinate] {
