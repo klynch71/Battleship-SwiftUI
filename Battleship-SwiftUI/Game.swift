@@ -95,11 +95,11 @@ final class Game: ObservableObject {
             if let hitShip = myFleet.ship(at: location) {
                 hitShip.hit(at: location)
                 myZoneStates[location.x][location.y] = .hit
-                message = hitShip.isSunk() ? "Enemy did sunk your \(hitShip.name)!" : "Hited"
+                message = hitShip.isSunk() ? "Enemy did sunk your \(hitShip.name)!" : "Hited at x:\(location.x), y:\(location.y)"
                 hit = true
             } else {
                 myZoneStates[location.x][location.y] = .miss
-                message = "Missed"
+                message = "Missed at x:\(location.x), y:\(location.y)"
             }
         }
         return hit
@@ -133,15 +133,31 @@ final class Game: ObservableObject {
 
     func performEnemyRandomFire() {
         let clearLocations = findAllClearLocations()
+        let randomIndex = Int.random(in: 0..<clearLocations.count)
         var location: Coordinate
         if let lastHittedLocation = self.lastHittedLocation {
             // find from clearLocations nearest location to lastHittedLocation
             // temporary use random
-            let index = Int.random(in: 0..<clearLocations.count)
-            location = clearLocations[index]
+            var nearestLocations = [Coordinate]()
+            for clearLocation in clearLocations {
+                let x = clearLocation.x
+                let y = clearLocation.y
+
+                if (lastHittedLocation.x == x - 1 || lastHittedLocation.x == x + 1 || lastHittedLocation.x == x)
+                    && (lastHittedLocation.y == y - 1 || lastHittedLocation.y == y + 1 || lastHittedLocation.y == y)
+                    && !(lastHittedLocation.x == x && lastHittedLocation.y == y)
+                {
+                    nearestLocations.append(clearLocation)
+                }
+            }
+            if let foundLocation = nearestLocations.randomElement() {
+                location = foundLocation
+            } else {
+                location = clearLocations[randomIndex]
+            }
+
         } else {
-            let index = Int.random(in: 0..<clearLocations.count)
-            location = clearLocations[index]
+            location = clearLocations[randomIndex]
         }
 
         let hit = self.myZoneTapped(location)
