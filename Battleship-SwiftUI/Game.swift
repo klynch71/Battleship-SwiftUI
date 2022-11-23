@@ -54,18 +54,20 @@ final class Game: ObservableObject {
     /*
      handle when an OceanZoneView is tapped
      */
-    func enemyZoneTapped(_ location: Coordinate) {
+    func enemyZoneTapped(_ location: Coordinate) -> Bool {
         guard !over else {
             message = "YOU WON!"
-            return
+            return false
         }
 
+        var hit = false
         if case .clear = enemyZoneStates[location.x][location.y] {
             self.messageAmo += 1
             if let hitShip = enemyFleet.ship(at: location) {
                 hitShip.hit(at: location)
                 enemyZoneStates[location.x][location.y] = .hit
                 message = hitShip.isSunk() ? "You sunk enemy \(hitShip.name)!" : "Hit"
+                hit = true
             } else {
                 enemyZoneStates[location.x][location.y] = .miss
                 message = "Miss"
@@ -76,14 +78,16 @@ final class Game: ObservableObject {
                 await self.delayedAction(for: duration)
             }
         }
+        return hit
     }
 
-    func myZoneTapped(_ location: Coordinate) {
+    func myZoneTapped(_ location: Coordinate) -> Bool {
         guard !over else {
             message = "YOU LOST!"
-            return
+            return false
         }
 
+        var hit = false
         if case .clear = myZoneStates[location.x][location.y] {
             self.messageAmo += 1
             //see if we hit a ship
@@ -91,11 +95,13 @@ final class Game: ObservableObject {
                 hitShip.hit(at: location)
                 myZoneStates[location.x][location.y] = .hit
                 message = hitShip.isSunk() ? "Enemy did sunk your \(hitShip.name)!" : "Hited"
+                hit = true
             } else {
                 myZoneStates[location.x][location.y] = .miss
                 message = "Missed"
             }
         }
+        return hit
     }
     
     /*
@@ -119,7 +125,9 @@ final class Game: ObservableObject {
 
     func delayedAction(for duration: Duration) async {
         try? await Task.sleep(for: duration)
-        performEnemyRandomFire()
+        await MainActor.run {
+            self.performEnemyRandomFire()
+        }
     }
 
     func performEnemyRandomFire() {
@@ -127,7 +135,7 @@ final class Game: ObservableObject {
         let index = Int.random(in: 0..<clearLocations.count)
         let randomLocation = clearLocations[index]
 
-        self.myZoneTapped(randomLocation)
+        let hit = self.myZoneTapped(randomLocation)
     }
 
     func findAllClearLocations() -> [Coordinate] {
