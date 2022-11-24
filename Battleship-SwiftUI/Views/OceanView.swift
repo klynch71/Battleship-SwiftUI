@@ -20,7 +20,7 @@ struct OceanView: View {
     var body: some View {
         let range = (0..<(game.numCols * game.numRows))
         let columns = [GridItem](repeating: GridItem(.flexible(), spacing: 0), count: game.numCols)
-        GeometryReader {geo in
+        GeometryReader { geo in
             LazyVGrid(columns: columns, spacing: 0) {
                 ForEach(range, id: \.self) {index in
                     let y = index / game.numRows
@@ -35,7 +35,7 @@ struct OceanView: View {
                         OceanZoneView(state: $game.enemyZoneStates[x][y], forceVisibility: false)
                             .frame(height: geo.size.height/CGFloat(game.numRows))
                             .onTapGesture {
-                                game.enemyZoneTapped(location)
+                                _ = game.enemyZoneTapped(location)
                             }
                     }
                 }

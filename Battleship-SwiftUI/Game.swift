@@ -29,6 +29,7 @@ final class Game: ObservableObject {
         return myFleet.isDestroyed() || enemyFleet.isDestroyed()
     }
     var lastHittedLocation: Coordinate?
+    var directionToLastHit: Coordinate.ComparsionVector?
     
     init(numCols: Int, numRows: Int) {
         self.numRows = numRows
@@ -97,7 +98,9 @@ final class Game: ObservableObject {
                 hitShip.hit(at: location)
                 myZoneStates[location.x][location.y] = .hit
                 message = hitShip.isSunk() ? "Enemy did sunk your \(hitShip.name)!" : "Hited at x:\(location.x), y:\(location.y)"
-                self.lastHittedLocation = nil
+                if hitShip.isSunk() {
+                    self.lastHittedLocation = nil
+                }
                 hit = true
             } else {
                 myZoneStates[location.x][location.y] = .miss
@@ -135,9 +138,8 @@ final class Game: ObservableObject {
 
     func performEnemyRandomFire() {
         let clearLocations = findAllClearLocations()
-        let randomIndex = Int.random(in: 0..<clearLocations.count)
-        
-        var location: Coordinate
+        guard var location = clearLocations.randomElement() else { return }
+
         if let lastHittedLocation = self.lastHittedLocation {
             // find from clearLocations nearest location to lastHittedLocation
             // temporary use random
@@ -146,24 +148,58 @@ final class Game: ObservableObject {
                 let x = clearLocation.x
                 let y = clearLocation.y
                 
-                if (lastHittedLocation.y == y + 1 && lastHittedLocation.x == x) || (lastHittedLocation.y == y - 1 && lastHittedLocation.x == x) || (lastHittedLocation.x == x - 1 && lastHittedLocation.y == y) || (lastHittedLocation.x == x + 1 && lastHittedLocation.y == y) {
+                if (lastHittedLocation.y == y + 1 && lastHittedLocation.x == x)
+                    || (lastHittedLocation.y == y - 1 && lastHittedLocation.x == x)
+                    || (lastHittedLocation.x == x - 1 && lastHittedLocation.y == y)
+                    || (lastHittedLocation.x == x + 1 && lastHittedLocation.y == y) {
                     nearestLocations.append(clearLocation)
                 }
-                
             }
-            if let foundLocation = nearestLocations.randomElement() {
-                location = foundLocation
-            } else {
-                location = clearLocations[randomIndex]
-            }
+            if let directionToLastHit = self.directionToLastHit, let lastHittedLocation = self.lastHittedLocation  {
+                // calculate location by direction
+                var calculatedLocation = Coordinate(
+                    x: lastHittedLocation.x,
+                    y: lastHittedLocation.y
+                )
+                switch directionToLastHit {
+                case .top:
+                    if calculatedLocation.y > 0 {
+                        calculatedLocation.y -= 1
+                        location = calculatedLocation
+                    }
+                case .bottom:
+                    if calculatedLocation.y < self.numRows - 1 {
+                        calculatedLocation.y += 1
+                        location = calculatedLocation
+                    }
+                case .left:
+                    if calculatedLocation.x > 0 {
+                        calculatedLocation.x -= 1
+                        location = calculatedLocation
+                    }
+                case .right:
+                    if calculatedLocation.x < self.numCols - 1 {
+                        calculatedLocation.x += 1
+                        location = calculatedLocation
+                    }
+                default:
+                    break
+                }
 
-        } else {
-            location = clearLocations[randomIndex]
+            } else if let foundLocation = nearestLocations.randomElement() {
+                location = foundLocation
+            }
         }
 
         let hit = self.myZoneTapped(location)
         if hit {
+            // was there last hitted location before?
+            if let lastHittedLocation = self.lastHittedLocation {
+                self.directionToLastHit = lastHittedLocation.compare(location)
+            }
             self.lastHittedLocation = location
+        } else {
+            // handle last hist location and direction to last hist
         }
     }
 
