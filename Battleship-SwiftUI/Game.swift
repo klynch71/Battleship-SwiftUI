@@ -97,6 +97,7 @@ final class Game: ObservableObject {
                 hitShip.hit(at: location)
                 myZoneStates[location.x][location.y] = .hit
                 message = hitShip.isSunk() ? "Enemy did sunk your \(hitShip.name)!" : "Hited at x:\(location.x), y:\(location.y)"
+                self.lastHittedLocation = nil
                 hit = true
             } else {
                 myZoneStates[location.x][location.y] = .miss
@@ -135,6 +136,7 @@ final class Game: ObservableObject {
     func performEnemyRandomFire() {
         let clearLocations = findAllClearLocations()
         let randomIndex = Int.random(in: 0..<clearLocations.count)
+        
         var location: Coordinate
         if let lastHittedLocation = self.lastHittedLocation {
             // find from clearLocations nearest location to lastHittedLocation
@@ -143,13 +145,11 @@ final class Game: ObservableObject {
             for clearLocation in clearLocations {
                 let x = clearLocation.x
                 let y = clearLocation.y
-
-                if (lastHittedLocation.x == x - 1 || lastHittedLocation.x == x + 1 || lastHittedLocation.x == x)
-                    && (lastHittedLocation.y == y - 1 || lastHittedLocation.y == y + 1 || lastHittedLocation.y == y)
-                    && !(lastHittedLocation.x == x && lastHittedLocation.y == y)
-                {
+                
+                if (lastHittedLocation.y == y + 1 && lastHittedLocation.x == x) || (lastHittedLocation.y == y - 1 && lastHittedLocation.x == x) || (lastHittedLocation.x == x - 1 && lastHittedLocation.y == y) || (lastHittedLocation.x == x + 1 && lastHittedLocation.y == y) {
                     nearestLocations.append(clearLocation)
                 }
+                
             }
             if let foundLocation = nearestLocations.randomElement() {
                 location = foundLocation
@@ -169,7 +169,7 @@ final class Game: ObservableObject {
 
     func findAllClearLocations() -> [Coordinate] {
         var locations = [Coordinate]()
-        for (x, states) in self.enemyZoneStates.enumerated() {
+        for (x, states) in self.myZoneStates.enumerated() {
             for (y, state) in states.enumerated() {
                 if case .clear = state {
                     let location = Coordinate(x: x, y: y)
