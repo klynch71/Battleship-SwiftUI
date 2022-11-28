@@ -52,6 +52,7 @@ final class Game: ObservableObject {
         self.message = ""
         self.messageAmo = 0
         self.lastHittedLocation = nil
+        self.directionToLastHit = nil
     }
     
     /*
@@ -97,9 +98,12 @@ final class Game: ObservableObject {
             if let hitShip = myFleet.ship(at: location) {
                 hitShip.hit(at: location)
                 myZoneStates[location.x][location.y] = .hit
-                message = hitShip.isSunk() ? "Enemy did sunk your \(hitShip.name)!" : "Hited at x:\(location.x), y:\(location.y)"
                 if hitShip.isSunk() {
+                    message = "Enemy did sunk your \(hitShip.name)!"
                     self.lastHittedLocation = nil
+                    self.directionToLastHit = nil
+                } else {
+                    message = "Hited at x:\(location.x), y:\(location.y)"
                 }
                 hit = true
             } else {
@@ -143,21 +147,21 @@ final class Game: ObservableObject {
         if let lastHittedLocation = self.lastHittedLocation {
             // find from clearLocations nearest location to lastHittedLocation
             // temporary use random
-            var nearestLocations = [Coordinate]()
+            var nearestLocations = [Coordinate]() // array of possible nearest neighbougrs
             for clearLocation in clearLocations {
                 let x = clearLocation.x
                 let y = clearLocation.y
                 
-                if (lastHittedLocation.y == y + 1 && lastHittedLocation.x == x)
-                    || (lastHittedLocation.y == y - 1 && lastHittedLocation.x == x)
-                    || (lastHittedLocation.x == x - 1 && lastHittedLocation.y == y)
-                    || (lastHittedLocation.x == x + 1 && lastHittedLocation.y == y) {
+                if (lastHittedLocation.y == y + 1 && lastHittedLocation.x == x) // up
+                    || (lastHittedLocation.y == y - 1 && lastHittedLocation.x == x) // down
+                    || (lastHittedLocation.x == x - 1 && lastHittedLocation.y == y) // left
+                    || (lastHittedLocation.x == x + 1 && lastHittedLocation.y == y) { // right
                     nearestLocations.append(clearLocation)
                 }
             }
             if let directionToLastHit = self.directionToLastHit, let lastHittedLocation = self.lastHittedLocation  {
                 // calculate location by direction
-                var calculatedLocation = Coordinate(
+                var calculatedLocation = Coordinate( // copy the last hit
                     x: lastHittedLocation.x,
                     y: lastHittedLocation.y
                 )
@@ -165,22 +169,30 @@ final class Game: ObservableObject {
                 case .top:
                     if calculatedLocation.y > 0 {
                         calculatedLocation.y -= 1
-                        location = calculatedLocation
+                        if clearLocations.contains(calculatedLocation) {
+                            location = calculatedLocation
+                        }
                     }
                 case .bottom:
                     if calculatedLocation.y < self.numRows - 1 {
                         calculatedLocation.y += 1
-                        location = calculatedLocation
+                        if clearLocations.contains(calculatedLocation) {
+                            location = calculatedLocation
+                        }
                     }
                 case .left:
                     if calculatedLocation.x > 0 {
                         calculatedLocation.x -= 1
-                        location = calculatedLocation
+                        if clearLocations.contains(calculatedLocation) {
+                            location = calculatedLocation
+                        }
                     }
                 case .right:
                     if calculatedLocation.x < self.numCols - 1 {
                         calculatedLocation.x += 1
-                        location = calculatedLocation
+                        if clearLocations.contains(calculatedLocation) {
+                            location = calculatedLocation
+                        }
                     }
                 default:
                     break
@@ -199,7 +211,8 @@ final class Game: ObservableObject {
             }
             self.lastHittedLocation = location
         } else {
-            // handle last hist location and direction to last hist
+            // handle last hist location and direction to last hit
+            self.lastHittedLocation = nil
         }
     }
 
