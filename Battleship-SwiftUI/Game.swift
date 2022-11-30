@@ -31,6 +31,13 @@ final class Game: ObservableObject {
     var lastHittedLocation: Coordinate?
     var suggestedLocation: Coordinate?
     var directionToLastHit: Coordinate.ComparsionVector?
+
+    enum ShipHitStatus {
+        case miss
+        case hit
+        case sunk
+        case over
+    }
     
     init(numCols: Int, numRows: Int) {
         self.numRows = numRows
@@ -60,20 +67,25 @@ final class Game: ObservableObject {
     /*
      handle when an OceanZoneView is tapped
      */
-    func enemyZoneTapped(_ location: Coordinate) -> Bool {
+    func enemyZoneTapped(_ location: Coordinate) -> ShipHitStatus {
         guard !over else {
             message = "YOU WON!"
-            return false
+            return .over
         }
 
-        var hit = false
+        var status: ShipHitStatus = .miss
         if case .clear = enemyZoneStates[location.x][location.y] {
             self.messageAmo += 1
             if let hitShip = enemyFleet.ship(at: location) {
                 hitShip.hit(at: location)
                 enemyZoneStates[location.x][location.y] = .hit
-                message = hitShip.isSunk() ? "You sunk enemy \(hitShip.name)!" : "Hit"
-                hit = true
+                if hitShip.isSunk() {
+                    message = "You sunk enemy \(hitShip.name)!"
+                    status = .sunk
+                } else {
+                    message = "Hit at x:\(location.x), y:\(location.y)"
+                    status = .hit
+                }
             } else {
                 enemyZoneStates[location.x][location.y] = .miss
                 message = "Miss"
@@ -84,16 +96,16 @@ final class Game: ObservableObject {
                 await self.delayedAction(for: duration)
             }
         }
-        return hit
+        return status
     }
 
-    func myZoneTapped(_ location: Coordinate) -> Bool {
+    func myZoneTapped(_ location: Coordinate) -> ShipHitStatus {
         guard !over else {
             message = "YOU LOST!"
-            return false
+            return .over
         }
 
-        var hit = false
+        var status: ShipHitStatus = .miss
         if case .clear = myZoneStates[location.x][location.y] {
             self.messageAmo += 1
             //see if we hit a ship
@@ -102,18 +114,21 @@ final class Game: ObservableObject {
                 myZoneStates[location.x][location.y] = .hit
                 if hitShip.isSunk() {
                     message = "Enemy did sunk your \(hitShip.name)!"
+                    status = .sunk
+
                     self.lastHittedLocation = nil
                     self.directionToLastHit = nil
+                    self.suggestedLocation = nil
                 } else {
                     message = "Hited at x:\(location.x), y:\(location.y)"
+                    status = .hit
                 }
-                hit = true
             } else {
                 myZoneStates[location.x][location.y] = .miss
                 message = "Missed at x:\(location.x), y:\(location.y)"
             }
         }
-        return hit
+        return status
     }
     
     /*
@@ -148,6 +163,7 @@ final class Game: ObservableObject {
 
         if let suggestedLocation = self.suggestedLocation {
             location = suggestedLocation
+            self.suggestedLocation = nil
         } else if let lastHittedLocation = self.lastHittedLocation {
             // find from clearLocations nearest location to lastHittedLocation
             // temporary use random
@@ -163,7 +179,7 @@ final class Game: ObservableObject {
                     nearestLocations.append(clearLocation)
                 }
             }
-            if let directionToLastHit = self.directionToLastHit, let lastHittedLocation = self.lastHittedLocation  {
+            if let directionToLastHit = self.directionToLastHit  {
                 // calculate location by direction
                 var calculatedLocation = Coordinate( // copy the last hit
                     x: lastHittedLocation.x,
@@ -207,67 +223,72 @@ final class Game: ObservableObject {
             }
         }
 
-        let hit = self.myZoneTapped(location)
-        if hit {
-            // was there last hitted location before?
+        let hitStatus = self.myZoneTapped(location)
+
+        // filter last location
+        let stillAvailableClearLocations = clearLocations.filter { tempLocation in
+            return tempLocation != location
+        }
+
+        if hitStatus == .miss {
+            if let lastHittedLocation = self.lastHittedLocation {
+                let x = lastHittedLocation.x
+                let y = lastHittedLocation.y
+
+                if let directionToLastHit = self.directionToLastHit {
+                    switch directionToLastHit {
+                    case .top:
+                        let locationsForTop = stillAvailableClearLocations.filter { location in
+                            return location.x == x && location.y < y
+                        }
+                        if let nearestLocationForTop = locationsForTop.sorted(by: { location1, location2 in
+                            return location1.y < location2.y
+                        }).first {
+                            self.suggestedLocation = nearestLocationForTop
+                        }
+                    case .bottom:
+                        let locationsForBottom = stillAvailableClearLocations.filter { location in
+                            return location.x == x && location.y > y
+                        }
+                        if let nearestLocationForBottom = locationsForBottom.sorted(by: { location1, location2 in
+                            return location1.y > location2.y
+                        }).first {
+                            self.suggestedLocation = nearestLocationForBottom
+                        }
+                    case .left:
+                        let locationsForLeft = stillAvailableClearLocations.filter { location in
+                            return location.y == y && location.x > x
+                        }
+                        if let nearestLocationForLeft = locationsForLeft.sorted(by: { location1, location2 in
+                            return location1.x > location2.x
+                        }).first {
+                            self.suggestedLocation = nearestLocationForLeft
+                        }
+                    case .right:
+                        let locationsForRight = stillAvailableClearLocations.filter { location in
+                            return location.y == y && location.x < x
+                        }
+                        if let nearestLocationForRight = locationsForRight.sorted(by: { location1, location2 in
+                            return location1.x < location2.x
+                        }).first {
+                            self.suggestedLocation = nearestLocationForRight
+                        }
+                    default:
+                        break
+                    }
+                }
+
+            }
+        } else if hitStatus == .hit {
             if let lastHittedLocation = self.lastHittedLocation {
                 self.directionToLastHit = lastHittedLocation.compare(location)
             }
             self.lastHittedLocation = location
             self.suggestedLocation = nil
-        } else {
-            // handle last hist location and direction to last hit
-            if let directionToLastHit = self.directionToLastHit, let lastHittedLocation = self.lastHittedLocation {
-                let x = lastHittedLocation.x
-                let y = lastHittedLocation.y
-
-                switch directionToLastHit {
-                case .top:
-                    let locationsForTop = clearLocations.filter { location in
-                        return location.x == x && location.y > y
-                    }
-                    if let nearestLocationForTop = locationsForTop.sorted(by: { location1, location2 in
-                        return location1.y < location2.y
-                    }).first {
-                        self.suggestedLocation = nearestLocationForTop
-                    }
-                case .bottom:
-                    let locationsForBottom = clearLocations.filter { location in
-                        return location.x == x && location.y < y
-                    }
-                    if let nearestLocationForBottom = locationsForBottom.sorted(by: { location1, location2 in
-                        return location1.y > location2.y
-                    }).first {
-                        self.suggestedLocation = nearestLocationForBottom
-                    }
-                case .left:
-                    let locationsForLeft = clearLocations.filter { location in
-                        return location.y == y && location.x < x
-                    }
-                    if let nearestLocationForLeft = locationsForLeft.sorted(by: { location1, location2 in
-                        return location1.x > location2.x
-                    }).first {
-                        self.suggestedLocation = nearestLocationForLeft
-                    }
-                case .right:
-                    let locationsForRight = clearLocations.filter { location in
-                        return location.y == y && location.x > x
-                    }
-                    if let nearestLocationForRight = locationsForRight.sorted(by: { location1, location2 in
-                        return location1.x < location2.x
-                    }).first {
-                        self.suggestedLocation = nearestLocationForRight
-                    }
-                default:
-                    break
-                }
-
-            } else {
-                self.directionToLastHit = nil
-                self.lastHittedLocation = nil
-                self.suggestedLocation = nil
-                // go for random location
-            }
+        } else if hitStatus == .sunk {
+            self.lastHittedLocation = nil
+            self.directionToLastHit = nil
+            self.suggestedLocation = nil
         }
     }
 
