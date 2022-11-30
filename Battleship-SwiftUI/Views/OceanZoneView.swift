@@ -13,6 +13,31 @@ import SwiftUI
  */
 struct OceanZoneView: View {
     @Binding var state: OceanZoneState
+    var color: Color {
+        switch state {
+        case .clear(let ship):
+            if let ship = ship {
+                switch ship.length {
+                case 5:
+                    return .gray
+                case 4:
+                    return .purple
+                case 3:
+                    return .orange
+                case 2:
+                    return .yellow
+                default:
+                    return .white
+                }
+            } else {
+                return .clear
+            }
+        case .hit:
+            return .red
+        case .miss:
+            return .green
+        }
+    }
     var forceVisibility: Bool
     private let circleScale = CGSize(width: 0.5, height: 0.5)
     
@@ -23,10 +48,10 @@ struct OceanZoneView: View {
                 .background(.blue)
 
             switch state {
-            case .clear(let isShip):
-                if forceVisibility && isShip {
+            case .clear(let ship):
+                if forceVisibility, ship != nil {
                     ScaledShape(shape: Rectangle(), scale: circleScale)
-                        .fill(.white)
+                        .fill(self.color)
                         .opacity(0.8)
                 } else {
                     EmptyView()

@@ -140,11 +140,8 @@ final class Game: ObservableObject {
             states.append([])
             for y in 0..<self.numRows {
                 let location = Coordinate(x: x, y: y)
-                if fleet.ship(at: location) != nil {
-                    states[x].append(.clear(true))
-                } else {
-                    states[x].append(.clear(false))
-                }
+                let ship = fleet.ship(at: location)
+                states[x].append(.clear(ship))
             }
         }
         return states
