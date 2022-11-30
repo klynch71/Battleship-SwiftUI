@@ -29,6 +29,7 @@ final class Game: ObservableObject {
         return myFleet.isDestroyed() || enemyFleet.isDestroyed()
     }
     var lastHittedLocation: Coordinate?
+    var suggestedLocation: Coordinate?
     var directionToLastHit: Coordinate.ComparsionVector?
     
     init(numCols: Int, numRows: Int) {
@@ -53,6 +54,7 @@ final class Game: ObservableObject {
         self.messageAmo = 0
         self.lastHittedLocation = nil
         self.directionToLastHit = nil
+        self.suggestedLocation = nil
     }
     
     /*
@@ -144,7 +146,9 @@ final class Game: ObservableObject {
         let clearLocations = findAllClearLocations()
         guard var location = clearLocations.randomElement() else { return }
 
-        if let lastHittedLocation = self.lastHittedLocation {
+        if let suggestedLocation = self.suggestedLocation {
+            location = suggestedLocation
+        } else if let lastHittedLocation = self.lastHittedLocation {
             // find from clearLocations nearest location to lastHittedLocation
             // temporary use random
             var nearestLocations = [Coordinate]() // array of possible nearest neighbougrs
@@ -210,9 +214,60 @@ final class Game: ObservableObject {
                 self.directionToLastHit = lastHittedLocation.compare(location)
             }
             self.lastHittedLocation = location
+            self.suggestedLocation = nil
         } else {
             // handle last hist location and direction to last hit
-            self.lastHittedLocation = nil
+            if let directionToLastHit = self.directionToLastHit, let lastHittedLocation = self.lastHittedLocation {
+                let x = lastHittedLocation.x
+                let y = lastHittedLocation.y
+
+                switch directionToLastHit {
+                case .top:
+                    let locationsForTop = clearLocations.filter { location in
+                        return location.x == x && location.y > y
+                    }
+                    if let nearestLocationForTop = locationsForTop.sorted(by: { location1, location2 in
+                        return location1.y < location2.y
+                    }).first {
+                        self.suggestedLocation = nearestLocationForTop
+                    }
+                case .bottom:
+                    let locationsForBottom = clearLocations.filter { location in
+                        return location.x == x && location.y < y
+                    }
+                    if let nearestLocationForBottom = locationsForBottom.sorted(by: { location1, location2 in
+                        return location1.y > location2.y
+                    }).first {
+                        self.suggestedLocation = nearestLocationForBottom
+                    }
+                case .left:
+                    let locationsForLeft = clearLocations.filter { location in
+                        return location.y == y && location.x < x
+                    }
+                    if let nearestLocationForLeft = locationsForLeft.sorted(by: { location1, location2 in
+                        return location1.x > location2.x
+                    }).first {
+                        self.suggestedLocation = nearestLocationForLeft
+                    }
+                case .right:
+                    let locationsForRight = clearLocations.filter { location in
+                        return location.y == y && location.x > x
+                    }
+                    if let nearestLocationForRight = locationsForRight.sorted(by: { location1, location2 in
+                        return location1.x < location2.x
+                    }).first {
+                        self.suggestedLocation = nearestLocationForRight
+                    }
+                default:
+                    break
+                }
+
+            } else {
+                self.directionToLastHit = nil
+                self.lastHittedLocation = nil
+                self.suggestedLocation = nil
+                // go for random location
+            }
         }
     }
 
