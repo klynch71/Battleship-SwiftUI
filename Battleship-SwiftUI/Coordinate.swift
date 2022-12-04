@@ -21,7 +21,7 @@ struct Coordinate: Hashable {
     }
 
     enum ComparsionVector {
-        case zero
+        case equal
         case top
         case right
         case bottom
@@ -31,16 +31,22 @@ struct Coordinate: Hashable {
 
     func compare(_ other: Coordinate) -> ComparsionVector {
         switch (self.x - other.x, self.y - other.y) {
-        case (0,0):
-            return .zero
-        case (-1, 0):
-            return .right
-        case (1, 0):
-            return .left
-        case (0,-1):
-            return .bottom
-        case (0,1):
-            return .top
+        case (0, 0):
+            return .equal
+
+        case (let deltaX, 0):
+            if deltaX >= 0 {
+                return .left
+            } else {
+                return .right
+            }
+
+        case (0, let deltaY):
+            if deltaY >= 0 {
+                return .top
+            } else {
+                return .bottom
+            }
         default:
             return .invalid
         }
