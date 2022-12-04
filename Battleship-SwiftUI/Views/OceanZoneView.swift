@@ -45,7 +45,7 @@ struct OceanZoneView: View {
         ZStack {
             Rectangle()
                 .strokeBorder(.black, lineWidth: 2)
-                .background(.blue)
+                .background(.white)
 
             switch state {
             case .clear(let ship):

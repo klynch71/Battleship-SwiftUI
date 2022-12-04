@@ -236,32 +236,36 @@ final class Game: ObservableObject {
                     switch directionToLastHit {
                     case .top:
                         let locationsForTop = stillAvailableClearLocations.filter { location in
-                            return location.x == x && location.y < y
+                            return location.x == x && location.y > y
                         }
                         if let nearestLocationForTop = locationsForTop.sorted(by: { location1, location2 in
                             return location1.y < location2.y
                         }).first {
                             self.suggestedLocation = nearestLocationForTop
+                            self.directionToLastHit = .top
                         }
                     case .bottom:
                         let locationsForBottom = stillAvailableClearLocations.filter { location in
-                            return location.x == x && location.y > y
+                            return location.x == x && location.y < y
                         }
                         if let nearestLocationForBottom = locationsForBottom.sorted(by: { location1, location2 in
                             return location1.y > location2.y
                         }).first {
                             self.suggestedLocation = nearestLocationForBottom
+                            self.directionToLastHit = .bottom
                         }
-                    case .left:
+                    case .right:
                         let locationsForLeft = stillAvailableClearLocations.filter { location in
-                            return location.y == y && location.x > x
+                            return location.y == y && location.x < x
                         }
-                        if let nearestLocationForLeft = locationsForLeft.sorted(by: { location1, location2 in
+                        if let nearestLocationForLeft = locationsForLeft.sorted(by: { location1 , location2 in
                             return location1.x > location2.x
                         }).first {
                             self.suggestedLocation = nearestLocationForLeft
+                            self.directionToLastHit = .right
+
                         }
-                    case .right:
+                    case .left:
                         let locationsForRight = stillAvailableClearLocations.filter { location in
                             return location.y == y && location.x < x
                         }
@@ -269,6 +273,7 @@ final class Game: ObservableObject {
                             return location1.x < location2.x
                         }).first {
                             self.suggestedLocation = nearestLocationForRight
+                            self.directionToLastHit = .left
                         }
                     default:
                         break
@@ -280,6 +285,7 @@ final class Game: ObservableObject {
             if let lastHittedLocation = self.lastHittedLocation {
                 self.directionToLastHit = lastHittedLocation.compare(location)
             }
+             
             self.lastHittedLocation = location
             self.suggestedLocation = nil
         } else if hitStatus == .sunk {
