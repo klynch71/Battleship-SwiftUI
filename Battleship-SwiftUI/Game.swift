@@ -188,6 +188,14 @@ final class Game: ObservableObject {
                         calculatedLocation.y -= 1
                         if clearLocations.contains(calculatedLocation) {
                             location = calculatedLocation
+                        } else {
+                            if let suggestedLocation = self.suggestLocation(available: clearLocations) {
+                                location = suggestedLocation
+                            }
+                        }
+                    } else {
+                        if let suggestedLocation = self.suggestLocation(available: clearLocations) {
+                            location = suggestedLocation
                         }
                     }
                 case .bottom:
@@ -195,6 +203,14 @@ final class Game: ObservableObject {
                         calculatedLocation.y += 1
                         if clearLocations.contains(calculatedLocation) {
                             location = calculatedLocation
+                        } else {
+                            if let suggestedLocation = self.suggestLocation(available: clearLocations) {
+                                location = suggestedLocation
+                            }
+                        }
+                    } else {
+                        if let suggestedLocation = self.suggestLocation(available: clearLocations) {
+                            location = suggestedLocation
                         }
                     }
                 case .left:
@@ -202,6 +218,14 @@ final class Game: ObservableObject {
                         calculatedLocation.x -= 1
                         if clearLocations.contains(calculatedLocation) {
                             location = calculatedLocation
+                        } else {
+                            if let suggestedLocation = self.suggestLocation(available: clearLocations) {
+                                location = suggestedLocation
+                            }
+                        }
+                    } else {
+                        if let suggestedLocation = self.suggestLocation(available: clearLocations) {
+                            location = suggestedLocation
                         }
                     }
                 case .right:
@@ -209,6 +233,14 @@ final class Game: ObservableObject {
                         calculatedLocation.x += 1
                         if clearLocations.contains(calculatedLocation) {
                             location = calculatedLocation
+                        } else {
+                            if let suggestedLocation = self.suggestLocation(available: clearLocations) {
+                                location = suggestedLocation
+                            }
+                        }
+                    } else {
+                        if let suggestedLocation = self.suggestLocation(available: clearLocations) {
+                            location = suggestedLocation
                         }
                     }
                 default:
@@ -228,59 +260,7 @@ final class Game: ObservableObject {
         }
 
         if hitStatus == .miss {
-            if let lastHittedLocation = self.lastHittedLocation {
-                let x = lastHittedLocation.x
-                let y = lastHittedLocation.y
-
-                if let directionToLastHit = self.directionToLastHit {
-                    switch directionToLastHit {
-                    case .top:
-                        let locationsForTop = stillAvailableClearLocations.filter { location in
-                            return location.x == x && location.y > y
-                        }
-                        if let nearestLocationForTop = locationsForTop.sorted(by: { location1, location2 in
-                            return location1.y < location2.y
-                        }).first {
-                            self.suggestedLocation = nearestLocationForTop
-                            self.directionToLastHit = .top
-                        }
-                    case .bottom:
-                        let locationsForBottom = stillAvailableClearLocations.filter { location in
-                            return location.x == x && location.y < y
-                        }
-                        if let nearestLocationForBottom = locationsForBottom.sorted(by: { location1, location2 in
-                            return location1.y > location2.y
-                        }).first {
-                            self.suggestedLocation = nearestLocationForBottom
-                            self.directionToLastHit = .bottom
-                        }
-                    case .right:
-                        let locationsForLeft = stillAvailableClearLocations.filter { location in
-                            return location.y == y && location.x < x
-                        }
-                        if let nearestLocationForLeft = locationsForLeft.sorted(by: { location1 , location2 in
-                            return location1.x > location2.x
-                        }).first {
-                            self.suggestedLocation = nearestLocationForLeft
-                            self.directionToLastHit = .right
-
-                        }
-                    case .left:
-                        let locationsForRight = stillAvailableClearLocations.filter { location in
-                            return location.y == y && location.x < x
-                        }
-                        if let nearestLocationForRight = locationsForRight.sorted(by: { location1, location2 in
-                            return location1.x < location2.x
-                        }).first {
-                            self.suggestedLocation = nearestLocationForRight
-                            self.directionToLastHit = .left
-                        }
-                    default:
-                        break
-                    }
-                }
-
-            }
+            self.suggestedLocation = suggestLocation(available: stillAvailableClearLocations)
         } else if hitStatus == .hit {
             if let lastHittedLocation = self.lastHittedLocation {
                 self.directionToLastHit = lastHittedLocation.compare(location)
@@ -293,6 +273,58 @@ final class Game: ObservableObject {
             self.directionToLastHit = nil
             self.suggestedLocation = nil
         }
+    }
+
+    func suggestLocation(available stillAvailableClearLocations: [Coordinate]) -> Coordinate? {
+        if let lastHittedLocation = self.lastHittedLocation {
+            let x = lastHittedLocation.x
+            let y = lastHittedLocation.y
+
+            if let directionToLastHit = self.directionToLastHit {
+                switch directionToLastHit {
+                case .top:
+                    let locationsForTop = stillAvailableClearLocations.filter { location in
+                        return location.x == x && location.y > y
+                    }
+                    if let nearestLocationForTop = locationsForTop.sorted(by: { location1, location2 in
+                        return location1.y < location2.y
+                    }).first {
+                        return nearestLocationForTop
+                    }
+                case .bottom:
+                    let locationsForBottom = stillAvailableClearLocations.filter { location in
+                        return location.x == x && location.y < y
+                    }
+                    if let nearestLocationForBottom = locationsForBottom.sorted(by: { location1, location2 in
+                        return location1.y > location2.y
+                    }).first {
+                        return nearestLocationForBottom
+                    }
+                case .right:
+                    let locationsForLeft = stillAvailableClearLocations.filter { location in
+                        return location.y == y && location.x < x
+                    }
+                    if let nearestLocationForLeft = locationsForLeft.sorted(by: { location1 , location2 in
+                        return location1.x > location2.x
+                    }).first {
+                        return nearestLocationForLeft
+
+                    }
+                case .left:
+                    let locationsForRight = stillAvailableClearLocations.filter { location in
+                        return location.y == y && location.x < x
+                    }
+                    if let nearestLocationForRight = locationsForRight.sorted(by: { location1, location2 in
+                        return location1.x < location2.x
+                    }).first {
+                        return nearestLocationForRight
+                    }
+                default:
+                    break
+                }
+            }
+        }
+        return nil
     }
 
     func findAllClearLocations() -> [Coordinate] {
