@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-@main
+@   main
 struct Battleship_SwiftUIApp: App {
     @StateObject private var game = Game(numCols: 8, numRows: 8)
     

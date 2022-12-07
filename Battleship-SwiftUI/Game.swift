@@ -69,7 +69,7 @@ final class Game: ObservableObject {
      */
     func enemyZoneTapped(_ location: Coordinate) -> ShipHitStatus {
         guard !over else {
-            message = "YOU WON!"
+            message = "YOU LOST !"
             return .over
         }
 
@@ -101,13 +101,12 @@ final class Game: ObservableObject {
 
     func myZoneTapped(_ location: Coordinate) -> ShipHitStatus {
         guard !over else {
-            message = "YOU LOST!"
+            message = "YOU WON !"
             return .over
         }
 
         var status: ShipHitStatus = .miss
         if case .clear = myZoneStates[location.x][location.y] {
-            self.messageAmo += 1
             //see if we hit a ship
             if let hitShip = myFleet.ship(at: location) {
                 hitShip.hit(at: location)
