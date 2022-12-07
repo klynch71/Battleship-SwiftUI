@@ -92,7 +92,7 @@ final class Game: ObservableObject {
             }
 
             Task {
-                let duration: Duration = .seconds(1)
+                let duration = UInt64(0.5 * 1_000_000_000) // nanoseconds
                 await self.delayedAction(for: duration)
             }
         }
@@ -146,8 +146,8 @@ final class Game: ObservableObject {
         return states
     }
 
-    func delayedAction(for duration: Duration) async {
-        try? await Task.sleep(for: duration)
+    func delayedAction(for nanoseconds: UInt64) async {
+        try? await Task.sleep(nanoseconds: nanoseconds)
         await MainActor.run {
             self.performEnemyRandomFire()
         }
