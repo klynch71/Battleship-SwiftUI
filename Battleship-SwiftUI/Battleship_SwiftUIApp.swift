@@ -1,15 +1,16 @@
 //
-//  Battleship_SwiftUIApp.swift
+//  Game.swift
 //  Battleship-SwiftUI
 //
-//  Created by Kevin Lynch on 7/25/22.
+//  Created by Sebastian Kucera on 11/20/22.
 //
+
 
 import SwiftUI
 
-@main
+@   main
 struct Battleship_SwiftUIApp: App {
-    @StateObject private var game = Game()
+    @StateObject private var game = Game(numCols: 8, numRows: 8)
     
     var body: some Scene {
         WindowGroup {

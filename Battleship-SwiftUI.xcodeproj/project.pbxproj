@@ -35,6 +35,7 @@
 		90831DCE288ED0EF00A24FB6 /* OceanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90831DCC288ED0EF00A24FB6 /* OceanView.swift */; };
 		90831DD0288ED11200A24FB6 /* ToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90831DCF288ED11200A24FB6 /* ToolbarView.swift */; };
 		90831DD1288ED11200A24FB6 /* ToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90831DCF288ED11200A24FB6 /* ToolbarView.swift */; };
+		ECF5D5DE292CEDB100B50464 /* SelectShipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF5D5DD292CEDB100B50464 /* SelectShipView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +59,7 @@
 		90831DC9288ED0CC00A24FB6 /* OceanZoneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OceanZoneView.swift; sourceTree = "<group>"; };
 		90831DCC288ED0EF00A24FB6 /* OceanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OceanView.swift; sourceTree = "<group>"; };
 		90831DCF288ED11200A24FB6 /* ToolbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarView.swift; sourceTree = "<group>"; };
+		ECF5D5DD292CEDB100B50464 /* SelectShipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectShipView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,6 +150,7 @@
 				90831DC9288ED0CC00A24FB6 /* OceanZoneView.swift */,
 				90831DCC288ED0EF00A24FB6 /* OceanView.swift */,
 				90831DCF288ED11200A24FB6 /* ToolbarView.swift */,
+				ECF5D5DD292CEDB100B50464 /* SelectShipView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -197,7 +200,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1400;
-				LastUpgradeCheck = 1400;
+				LastUpgradeCheck = 1410;
 				TargetAttributes = {
 					90831D8C288ECB9E00A24FB6 = {
 						CreatedOnToolsVersion = 14.0;
@@ -259,6 +262,7 @@
 				90831D91288ECB9E00A24FB6 /* Battleship_SwiftUIApp.swift in Sources */,
 				90831DBE288ED02A00A24FB6 /* ShipCompartment.swift in Sources */,
 				90831DCD288ED0EF00A24FB6 /* OceanView.swift in Sources */,
+				ECF5D5DE292CEDB100B50464 /* SelectShipView.swift in Sources */,
 				90831DBB288ED00A00A24FB6 /* Ocean.swift in Sources */,
 				90831DB8288ECFE700A24FB6 /* OceanZoneState.swift in Sources */,
 				90831DC1288ED04400A24FB6 /* Ship.swift in Sources */,
@@ -339,7 +343,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -393,7 +397,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -411,8 +415,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Battleship-SwiftUI/Preview Content\"";
+				DEVELOPMENT_TEAM = PH3V9JYRDW;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Battleships;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -423,7 +429,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "kalyn.com.Battleship-SwiftUI";
+				PRODUCT_BUNDLE_IDENTIFIER = "com-ic-servis.ios.Battleship-SwiftUI";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -439,8 +445,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Battleship-SwiftUI/Preview Content\"";
+				DEVELOPMENT_TEAM = PH3V9JYRDW;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Battleships;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -451,7 +459,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "kalyn.com.Battleship-SwiftUI";
+				PRODUCT_BUNDLE_IDENTIFIER = "com-ic-servis.ios.Battleship-SwiftUI";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -465,12 +473,16 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Battleship-SwiftUI-MAC/Battleship_SwiftUI_MAC.entitlements";
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Battleship-SwiftUI-MAC/Preview Content\"";
+				DEVELOPMENT_TEAM = PH3V9JYRDW;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Battleships;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -478,7 +490,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 12.4;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "kalyn.com.Battleship-SwiftUI-MAC";
+				PRODUCT_BUNDLE_IDENTIFIER = "com-ic-servis.mac.Battleship-SwiftUI";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -492,12 +504,16 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Battleship-SwiftUI-MAC/Battleship_SwiftUI_MAC.entitlements";
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Battleship-SwiftUI-MAC/Preview Content\"";
+				DEVELOPMENT_TEAM = PH3V9JYRDW;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Battleships;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -505,7 +521,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 12.4;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "kalyn.com.Battleship-SwiftUI-MAC";
+				PRODUCT_BUNDLE_IDENTIFIER = "com-ic-servis.mac.Battleship-SwiftUI";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SWIFT_EMIT_LOC_STRINGS = YES;
