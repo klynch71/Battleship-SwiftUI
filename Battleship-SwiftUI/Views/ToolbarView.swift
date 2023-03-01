@@ -19,6 +19,11 @@ struct ToolbarView: View {
             Spacer()
             Text(game.message)
             Spacer()
+            Text("\(game.messageAmo)")
+                .padding(.trailing, 10)
+
+
+
         }.frame(height: 30)
     }
     
@@ -30,7 +35,7 @@ struct ToolbarView: View {
 struct ToolbarView_Previews: PreviewProvider {
     static var previews: some View {
         ToolbarView()
-            .environmentObject(Game())
+            .environmentObject(Game(numCols: 8, numRows: 8))
     }
 }
 

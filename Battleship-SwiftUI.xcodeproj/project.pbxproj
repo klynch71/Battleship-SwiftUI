@@ -35,6 +35,7 @@
 		90831DCE288ED0EF00A24FB6 /* OceanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90831DCC288ED0EF00A24FB6 /* OceanView.swift */; };
 		90831DD0288ED11200A24FB6 /* ToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90831DCF288ED11200A24FB6 /* ToolbarView.swift */; };
 		90831DD1288ED11200A24FB6 /* ToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90831DCF288ED11200A24FB6 /* ToolbarView.swift */; };
+		ECF5D5DE292CEDB100B50464 /* SelectShipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF5D5DD292CEDB100B50464 /* SelectShipView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +59,7 @@
 		90831DC9288ED0CC00A24FB6 /* OceanZoneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OceanZoneView.swift; sourceTree = "<group>"; };
 		90831DCC288ED0EF00A24FB6 /* OceanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OceanView.swift; sourceTree = "<group>"; };
 		90831DCF288ED11200A24FB6 /* ToolbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarView.swift; sourceTree = "<group>"; };
+		ECF5D5DD292CEDB100B50464 /* SelectShipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectShipView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,6 +150,7 @@
 				90831DC9288ED0CC00A24FB6 /* OceanZoneView.swift */,
 				90831DCC288ED0EF00A24FB6 /* OceanView.swift */,
 				90831DCF288ED11200A24FB6 /* ToolbarView.swift */,
+				ECF5D5DD292CEDB100B50464 /* SelectShipView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -259,6 +262,7 @@
 				90831D91288ECB9E00A24FB6 /* Battleship_SwiftUIApp.swift in Sources */,
 				90831DBE288ED02A00A24FB6 /* ShipCompartment.swift in Sources */,
 				90831DCD288ED0EF00A24FB6 /* OceanView.swift in Sources */,
+				ECF5D5DE292CEDB100B50464 /* SelectShipView.swift in Sources */,
 				90831DBB288ED00A00A24FB6 /* Ocean.swift in Sources */,
 				90831DB8288ECFE700A24FB6 /* OceanZoneState.swift in Sources */,
 				90831DC1288ED04400A24FB6 /* Ship.swift in Sources */,
@@ -411,6 +415,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Battleship-SwiftUI/Preview Content\"";
+				DEVELOPMENT_TEAM = PH3V9JYRDW;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -439,6 +444,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Battleship-SwiftUI/Preview Content\"";
+				DEVELOPMENT_TEAM = PH3V9JYRDW;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

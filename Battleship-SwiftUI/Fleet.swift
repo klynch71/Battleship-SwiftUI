@@ -1,9 +1,10 @@
 //
-//  Fleet.swift
+//  Game.swift
 //  Battleship-SwiftUI
 //
-//  Created by Kevin Lynch on 7/25/22.
+//  Created by Sebastian Kucera on 11/20/22.
 //
+
 
 import Foundation
 
